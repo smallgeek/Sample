@@ -65,6 +65,8 @@ type FlashAirDownloader(ssid: string) as this =
   let cache = ResizeArray<FileInfo>()
 
   let watchAsync = async {
+    cache.AddRange(client.List(this.Remote))
+
     while true do
       do! Async.Sleep 1000
 

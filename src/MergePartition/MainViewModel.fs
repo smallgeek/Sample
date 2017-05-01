@@ -13,9 +13,6 @@ open FsXaml
 
 type MainViewModel() =
 
-  let downloader = new FlashAirDownloader("flashair_sg")
-  let watcher = new FileSystemWatcher()
-
   let downloadPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Download")
   let fileMovePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "FileMove")
 
@@ -24,6 +21,9 @@ type MainViewModel() =
   let fileMoveDirectory = new ReactiveProperty<string>(fileMovePath)
 
   let isEnabled = new ReactiveProperty<bool>()
+
+  let downloader = new FlashAirDownloader("flashair_sg", Local = downloadDirectory.Value, Remote = cameraDirectory.Value)
+  let watcher = new FileSystemWatcher(fileMoveDirectory.Value)
 
   do
     downloadDirectory
