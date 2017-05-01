@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{D2BCCB
 		paket.lock = paket.lock
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExcelBuilder", "src\ExcelBuilder\ExcelBuilder.fsproj", "{26DC9244-4A2C-40E5-8C35-3E8E18CF3843}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1FDF5253-D581-4443-9C68-92269D9F739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FDF5253-D581-4443-9C68-92269D9F739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FDF5253-D581-4443-9C68-92269D9F739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26DC9244-4A2C-40E5-8C35-3E8E18CF3843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26DC9244-4A2C-40E5-8C35-3E8E18CF3843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26DC9244-4A2C-40E5-8C35-3E8E18CF3843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26DC9244-4A2C-40E5-8C35-3E8E18CF3843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
