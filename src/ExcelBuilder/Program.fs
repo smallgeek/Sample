@@ -1,16 +1,4 @@
-﻿open FSharp.Control.Reactive
-open System
-open System.Reactive.Subjects
-
-let cell (x: 'a) = new BehaviorSubject<'a>(x)
-
-type ExcelBuilder() =
-  member __.Bind(m: IObservable<'a>, f: _ -> IObservable<'b>) =
-              Observable.bind f m
-  member __.Return(x) = 
-              Observable.asObservable (new BehaviorSubject<_>(x))
-
-let excel = new ExcelBuilder()
+﻿open Excel
 
 [<EntryPoint>]
 let main (argv: string []) =
