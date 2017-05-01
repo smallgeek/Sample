@@ -1,3 +1,7 @@
 ﻿FSharp.Core
-System.ValueTuple
+FSharp.Control.FusionTasks.FS40
+FSharp.Control.Reactive
 FsXaml.Wpf
+System.ValueTuple
+ReactiveProperty
+Microsoft.ProjectOxford.Vision

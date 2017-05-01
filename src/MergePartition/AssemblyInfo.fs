@@ -1,4 +1,4 @@
-﻿namespace FlashAir.AssemblyInfo
+﻿namespace MergePartition.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices
@@ -7,11 +7,11 @@ open System.Runtime.InteropServices
 // アセンブリに関する一般情報は、以下の属性セットによって
 // 制御されます。アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更します。
-[<assembly: AssemblyTitle("FlashAir")>]
+[<assembly: AssemblyTitle("MergePartition")>]
 [<assembly: AssemblyDescription("")>]
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("")>]
-[<assembly: AssemblyProduct("FlashAir")>]
+[<assembly: AssemblyProduct("MergePartition")>]
 [<assembly: AssemblyCopyright("Copyright ©  2017")>]
 [<assembly: AssemblyTrademark("")>]
 [<assembly: AssemblyCulture("")>]

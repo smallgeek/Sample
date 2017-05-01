@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:fsxaml="http://github.com/fsprojects/FsXaml"
         xmlns:local="clr-namespace:ViewModels;assembly=MergePartition"
-        MinHeight="220" MinWidth="300" Height="Auto"
+        Height="600" Width="800"
         x:Name="Self">
     <Window.Resources>
         <fsxaml:BooleanToCollapsedConverter x:Key="TrueToCollapsed" />
@@ -10,7 +10,63 @@
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
-    <Grid >
-        <TextBlock FontSize="72" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="48" Text="Merge &amp; Partition" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Grid.RowSpan="2" Grid.Column="0" 
+                      VerticalAlignment="Center" 
+                      IsChecked="{Binding IsEnabled.Value}" 
+                      Content="Enabled" />
+
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="4" Text="{Binding DownloadDirectory.Value}" />
+            <TextBox Grid.Row="0" Grid.Column="2" Margin="4" Text="{Binding CameraDirectory.Value}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="4" Text="{Binding FileMoveDirectory.Value}" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="Blue" BorderThickness="10" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{Binding DetectedText.Value}" />
+                    <Image Grid.Row="1" Source="{Binding DetectedImage.Value}" />
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" BorderBrush="Red" BorderThickness="10" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{Binding UndetectedText.Value}" />
+                    <Image Grid.Row="1" Source="{Binding UndetectedImage.Value}" />
+                </Grid>
+            </Border>
+        </Grid>
+
     </Grid>
 </Window>

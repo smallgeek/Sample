@@ -1,5 +1,9 @@
 source https://nuget.org/api/v2
 
 nuget FSharp.Core
-nuget System.ValueTuple
+nuget FSharp.Control.FusionTasks.FS40
+nuget FSharp.Control.Reactive
 nuget FsXaml.Wpf
+nuget System.ValueTuple
+nuget ReactiveProperty
+nuget Microsoft.ProjectOxford.Vision
