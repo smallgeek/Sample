@@ -19,7 +19,7 @@ let main (argv: string []) =
   a1.Value <- 5  // 5 + 2
   printfn "%i" c1.Value
 
-  b1.Value <- 4  // 5 + 4
+  b1.Value <- 1  // 5 + 1
   printfn "%i" c1.Value
 
   0

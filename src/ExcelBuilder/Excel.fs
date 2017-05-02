@@ -9,10 +9,16 @@
     inherit IObservable<'a>
     abstract member Value: 'a with get, set
 
-  type CellObservable<'a, 'b>(m: ICell<'a>, f: 'a -> ICell<'b>) =
+  type CellObservable<'a, 'b>(m: ICell<'a>, f: 'a -> ICell<'b>) as self =
     let collectionDisposable = new CompositeDisposable()
     let gate = new obj()
     let mutable value: 'b = Unchecked.defaultof<'b>
+
+    let subject = new BehaviorSubject<'b>(value) :> IObserver<'b>
+    
+    do
+      // Publish like
+      (self :> IObservable<'b>).Subscribe(subject) |> collectionDisposable.Add
 
     interface ICell<'b> with
       member this.Value 
@@ -30,7 +36,7 @@
                 let nextObservable = f v
 
                 let nextDisposable = new SingleAssignmentDisposable()
-                collectionDisposable.Add(nextDisposable)
+                nextDisposable |> collectionDisposable.Add
 
                 let nextObserver = 
                   {
@@ -190,12 +196,9 @@
   let cell (x: 'a) = new Cell<'a>(x) :> ICell<'a>
 
   type ExcelBuilder() =
-    let bindDisposable = new CompositeDisposable()
 
     member __.Bind(m: ICell<'a>, f: _ -> ICell<'b>) =
-                let observable = CellObservable(m, f)
-                observable.Subscribe (fun _ -> ()) |> bindDisposable.Add
-                observable :> ICell<'b>
+                CellObservable(m, f) :> ICell<'b>
 
     member __.Return(x: 'a) = 
                 new Cell<'a>(x) :> ICell<'a>
