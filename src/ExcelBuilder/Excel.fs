@@ -5,6 +5,64 @@
   open System.Reactive.Subjects
   open System.Reactive.Disposables
 
+  type ICell<'a> =
+    inherit IObservable<'a>
+    abstract member Value: 'a with get, set
+
+  type CellObservable<'a, 'b>(m: ICell<'a>, f: 'a -> ICell<'b>) =
+    let collectionDisposable = new CompositeDisposable()
+    let gate = new obj()
+    let mutable value: 'b = Unchecked.defaultof<'b>
+
+    interface ICell<'b> with
+      member this.Value 
+        with get () = value
+        and set (v) = value <- v
+
+    interface IObservable<'b> with
+      member self.Subscribe(observer: IObserver<'b>) =
+        let sourceDisposable = new SingleAssignmentDisposable()
+        let mutable isStopped = false
+
+        let disposable = m.Subscribe(
+          { new IObserver<'a> with
+              member this.OnNext(v: 'a) =
+                let nextObservable = f v
+
+                let nextDisposable = new SingleAssignmentDisposable()
+                collectionDisposable.Add(nextDisposable)
+
+                let nextObserver = 
+                  {
+                    new IObserver<'b> with
+                      member x.OnNext(v: 'b) =
+                        lock gate (fun () ->
+                          value <- v
+                          observer.OnNext(v)
+                        )
+
+                      member x.OnError(error: Exception) =
+                        lock gate (fun () -> observer.OnError(error))
+
+                      member x.OnCompleted() =
+                        if isStopped && collectionDisposable.Count = 1 then
+                          lock gate (fun () -> observer.OnCompleted())
+                  }
+
+                nextDisposable.Disposable <- nextObservable.Subscribe(nextObserver)
+
+              member this.OnError(error: Exception) =
+                lock gate (fun () -> observer.OnError(error))
+
+              member this.OnCompleted() =
+                isStopped <- true
+                if collectionDisposable.Count = 1 then
+                  lock gate (fun () -> observer.OnCompleted())
+                else
+                  sourceDisposable.Dispose()
+          })
+        disposable
+
   type Cell<'a>(value: 'a) =
     inherit SubjectBase<'a>()
 
@@ -20,22 +78,6 @@
 
     override val HasObservers = observers.Count > 0
     override val IsDisposed = lock gate (fun () -> isDisposed)
-
-    member this.Value
-      with get () = 
-        lock gate (
-          fun () -> 
-            checkDisposed()
-            if ex <> null then raise ex
-            value
-        )
-      and set (v) =
-        lock gate (
-          fun () ->
-            checkDisposed()
-            if ex <> null then raise ex
-            value <- v
-        )
 
     /// すべての Observer に完了を通知します。
     override this.OnCompleted() =
@@ -129,13 +171,34 @@
         ex <- null
       )
 
-  let cell (x: 'a) = new Cell<'a>(x)
+    interface ICell<'a> with
+      member this.Value
+        with get () = 
+          lock gate (
+            fun () -> 
+              checkDisposed()
+              if ex <> null then raise ex
+              value
+          )
+        and set (v) =
+          lock gate (
+            fun () ->
+              checkDisposed()
+              this.OnNext(v)
+          )
+
+  let cell (x: 'a) = new Cell<'a>(x) :> ICell<'a>
 
   type ExcelBuilder() =
-    member __.Bind(m: IObservable<'a>, f: _ -> IObservable<'b>) =
-                Observable.bind f m
-    member __.Return(x) = 
-                Observable.asObservable (new Cell<_>(x))
+    let bindDisposable = new CompositeDisposable()
+
+    member __.Bind(m: ICell<'a>, f: _ -> ICell<'b>) =
+                let observable = CellObservable(m, f)
+                observable.Subscribe (fun _ -> ()) |> bindDisposable.Add
+                observable :> ICell<'b>
+
+    member __.Return(x: 'a) = 
+                new Cell<'a>(x) :> ICell<'a>
 
   let excel = new ExcelBuilder()
 

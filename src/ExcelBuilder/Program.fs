@@ -3,19 +3,23 @@
 [<EntryPoint>]
 let main (argv: string []) =
 
-  let a1 = 1 |> cell
-  let b1 = 2 |> cell
+  let a1 = cell 1
+  let b1 = cell 2
   let c1 = excel {
     let! x = a1
     let! y = b1
     return x + y
   }
 
-  c1 |> Observable.subscribe (fun x -> printfn "C1 %i" x) |> ignore
+  printfn "%i" c1.Value
 
-  a1.OnNext 3
-  a1.OnNext 5
+  a1.Value <- 3  // 3 + 2
+  printfn "%i" c1.Value
 
-  stdin.Read() |> ignore
+  a1.Value <- 5  // 5 + 2
+  printfn "%i" c1.Value
+
+  b1.Value <- 4  // 5 + 4
+  printfn "%i" c1.Value
 
   0
