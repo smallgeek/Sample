@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{D2BCCB
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExcelBuilder", "src\ExcelBuilder\ExcelBuilder.fsproj", "{26DC9244-4A2C-40E5-8C35-3E8E18CF3843}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Adder", "src\HalfAdder\HalfAdder.fsproj", "{C4ADD3E7-0E49-4EDA-8B7E-C1A82F072B5E}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HalfAdder", "src\HalfAdder\HalfAdder.fsproj", "{C4ADD3E7-0E49-4EDA-8B7E-C1A82F072B5E}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FullAdder", "src\FullAdder\FullAdder.fsproj", "{83E9C52A-6C20-4A1B-A6A8-7BB580091EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C4ADD3E7-0E49-4EDA-8B7E-C1A82F072B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4ADD3E7-0E49-4EDA-8B7E-C1A82F072B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4ADD3E7-0E49-4EDA-8B7E-C1A82F072B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E9C52A-6C20-4A1B-A6A8-7BB580091EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E9C52A-6C20-4A1B-A6A8-7BB580091EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E9C52A-6C20-4A1B-A6A8-7BB580091EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E9C52A-6C20-4A1B-A6A8-7BB580091EBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
