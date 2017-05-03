@@ -51,9 +51,9 @@ type MainViewModel() =
     Observable.merge remoteSource localSource
     |> Observable.flatmapAsync recognize
     |> Observable.flatmapSeq toWords
-    |> Observable.partitionHot (fun (value, uri) -> value <> "")
+    |> Observable.partitionHot (fun (word, uri) -> word <> "")
 
-  let detectedText = 
+  let detectedWord = 
     detect 
     |> Observable.map fst
     |> Observable.toReadOnlyProp
@@ -63,7 +63,7 @@ type MainViewModel() =
     |> Observable.map snd
     |> Observable.toReadOnlyProp
 
-  let undetectedText =
+  let undetectedWord =
     undetect 
     |> Observable.map fst
     |> Observable.toReadOnlyProp
@@ -77,8 +77,8 @@ type MainViewModel() =
   member val CameraDirectory = cameraDirectory
   member val FileMoveDirectory = fileMoveDirectory
 
-  member val DetectedText = detectedText
-  member val UndetectedText = undetectedText
+  member val DetectedWord = detectedWord
+  member val UndetectedWord = undetectedWord
   member val DetectedImage = detectedImage
   member val UndetectedImage = undetectedImage
 
