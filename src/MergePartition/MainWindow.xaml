@@ -52,7 +52,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="3*" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="{Binding DetectedWord.Value}" />
+                    <TextBlock  Grid.Row="0" Text="{Binding DetectedText.Value}" TextWrapping="Wrap" />
                     <Image Grid.Row="1" Source="{Binding DetectedImage.Value}" />
                 </Grid>
             </Border>
@@ -62,7 +62,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="3*" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="{Binding UndetectedWord.Value}" />
+                    <TextBlock Grid.Row="0" Text="{Binding UndetectedText.Value}" TextWrapping="Wrap" />
                     <Image Grid.Row="1" Source="{Binding UndetectedImage.Value}" />
                 </Grid>
             </Border>

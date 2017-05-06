@@ -47,38 +47,38 @@ type MainViewModel() =
   let remoteSource = downloader.Downloaded |> Observable.map (fun e -> Uri e)
   let localSource = watcher.Created |> Observable.map (fun e -> Uri e.FullPath)
 
-  let detect, undetect =
-    Observable.merge remoteSource localSource
+  let detected, undetected =
+    remoteSource 
+    |> Observable.merge localSource
     |> Observable.flatmapAsync recognize
-    |> Observable.flatmapSeq toWords
-    |> Observable.partitionHot (fun (word, uri) -> word <> "")
+    |> Observable.partitionHot (fun results -> not results.IsDetected)
 
-  let detectedWord = 
-    detect 
-    |> Observable.map fst
+  let detectedText = 
+    detected
+    |> Observable.map (fun r -> r.Text)
     |> Observable.toReadOnlyProp
 
   let detectedImage = 
-    detect 
-    |> Observable.map snd
+    detected
+    |> Observable.map (fun r -> r.Path)
     |> Observable.toReadOnlyProp
 
-  let undetectedWord =
-    undetect 
-    |> Observable.map fst
+  let undetectedText =
+    undetected 
+    |> Observable.map (fun r -> r.Text)
     |> Observable.toReadOnlyProp
 
   let undetectedImage =
-    undetect 
-    |> Observable.map snd
+    undetected
+    |> Observable.map (fun r -> r.Path)
     |> Observable.toReadOnlyProp
 
   member val DownloadDirectory = downloadDirectory
   member val CameraDirectory = cameraDirectory
   member val FileMoveDirectory = fileMoveDirectory
 
-  member val DetectedWord = detectedWord
-  member val UndetectedWord = undetectedWord
+  member val DetectedText = detectedText
+  member val UndetectedText = undetectedText
   member val DetectedImage = detectedImage
   member val UndetectedImage = undetectedImage
 
