@@ -51,7 +51,7 @@ type MainViewModel() =
     remoteSource 
     |> Observable.merge localSource
     |> Observable.flatmapAsync recognize
-    |> Observable.partitionHot (fun results -> not results.IsDetected)
+    |> Observable.publishPartition (fun results -> not results.IsDetected)
 
   let detectedText = 
     detected

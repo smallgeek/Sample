@@ -2,7 +2,7 @@
   open System
   open Reactive.Bindings
 
-  let partitionHot (predicate: _ -> bool) (source: IObservable<_>) = 
+  let publishPartition  (predicate: _ -> bool) (source: IObservable<_>) = 
     source 
     |> Observable.publish 
     |> Observable.refCount 
