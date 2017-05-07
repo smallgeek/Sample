@@ -50,3 +50,5 @@ let inline (+) x y = x ? (AddOperator) <- y
 let inline (-) x y = x ? (SubOperator) <- y
 let inline (*) x y = x ? (MulOperator) <- y
 let inline (/) x y = x ? (DivOperator) <- y
+
+let inline (<--) (cell: ICell<'a>) (value: 'a) = cell.Value <- value

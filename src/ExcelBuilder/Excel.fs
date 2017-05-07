@@ -20,6 +20,8 @@
       // Publish like
       (self :> IObservable<'b>).Subscribe(subject) |> collectionDisposable.Add
 
+    override this.ToString() = value.ToString()
+
     interface ICell<'b> with
       member this.Value 
         with get () = value
@@ -84,6 +86,8 @@
 
     override val HasObservers = observers.Count > 0
     override val IsDisposed = lock gate (fun () -> isDisposed)
+
+    override this.ToString() = value.ToString()
 
     /// すべての Observer に完了を通知します。
     override this.OnCompleted() =
