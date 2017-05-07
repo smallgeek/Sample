@@ -205,7 +205,7 @@
 
   let excel = new ExcelBuilder()
 
-  let inline (@+) (cell1: ICell<'a>) (cell2: ICell<'a>) : ICell<'a>  =
+  let inline (@+) cell1 cell2 =
     let newCell = excel {
       let! x = cell1
       let! y = cell2
@@ -213,7 +213,7 @@
     }
     newCell 
 
-  let inline (@-) (cell1: ICell<'a>) (cell2: ICell<'a>) : ICell<'a>  =
+  let inline (@-) cell1 cell2 =
     let newCell = excel {
       let! x = cell1
       let! y = cell2
@@ -221,7 +221,7 @@
     }
     newCell
 
-  let inline (@*) (cell1: ICell<'a>) (cell2: ICell<'a>) : ICell<'a>  =
+  let inline (@*) cell1 cell2 =
     let newCell = excel {
       let! x = cell1
       let! y = cell2
@@ -229,7 +229,7 @@
     }
     newCell
 
-  let inline (@/) (cell1: ICell<'a>) (cell2: ICell<'a>) : ICell<'a>  =
+  let inline (@/) cell1 cell2 =
     let newCell = excel {
       let! x = cell1
       let! y = cell2
