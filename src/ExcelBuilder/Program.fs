@@ -1,4 +1,5 @@
 ﻿open Excel
+open CellOperators
 
 [<EntryPoint>]
 let main (argv: string []) =
@@ -6,8 +7,8 @@ let main (argv: string []) =
   let a1 = cell 1
   let b1 = cell 2
 
-  let c1 = a1 @+ b1
-  let d1 = a1 @- b1
+  let c1 = a1 + b1
+  let d1 = a1 - b1
 
   printfn "C1: 1 + 2 = %i" c1.Value
   printfn "D1: 1 - 2 = %i" d1.Value

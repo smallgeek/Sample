@@ -58,6 +58,7 @@
     <None Include="App.config" />
     <None Include="paket.references" />
     <Compile Include="Excel.fs" />
+    <Compile Include="Operators.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
