@@ -1,14 +1,14 @@
 ﻿module FSharp.Control.Reactive.Observable
-  open System
-  open Reactive.Bindings
 
-  let publishPartition  (predicate: _ -> bool) (source: IObservable<_>) = 
-    source 
-    |> Observable.publish 
-    |> Observable.refCount 
-    |> Observable.partition predicate
+open System
+open Reactive.Bindings
 
-  let toProp (source: IObservable<_>) = source.ToReactiveProperty()
+let publishPartition  (predicate: _ -> bool) (source: IObservable<_>) = 
+  source 
+  |> Observable.publish 
+  |> Observable.refCount 
+  |> Observable.partition predicate
 
-  let toReadOnlyProp (source: IObservable<_>) = source.ToReadOnlyReactiveProperty()
+let toProp (source: IObservable<_>) = source.ToReactiveProperty()
 
+let toReadOnlyProp (source: IObservable<_>) = source.ToReadOnlyReactiveProperty()
