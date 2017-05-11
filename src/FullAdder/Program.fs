@@ -1,6 +1,6 @@
 ﻿open Adder
-  open Unqualified
-  open System.Reactive.Subjects
+open System.Reactive.Subjects
+open FSharp.Control.Reactive.Observable
 
 [<EntryPoint>]
 let main argv = 

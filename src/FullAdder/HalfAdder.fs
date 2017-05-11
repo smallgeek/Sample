@@ -1,19 +1,20 @@
 ﻿module Adder
-  open Unqualified
-  open System
-  open System.Reactive.Subjects
 
-  type HalfAdder() =
-    let a = new BehaviorSubject<int>(0)
-    let b = new BehaviorSubject<int>(0)
+open System
+open System.Reactive.Subjects
+open FSharp.Control.Reactive.Observable
 
-    let orGate  = zip a b |> map (fun (x, y) -> x ||| y)
-    let andGate = zip a b |> map (fun (x, y) -> x &&& y)
-    let notGate = andGate |> map (fun x -> ~~~ x)
-    let s = zip orGate notGate |> map (fun (x, y) -> x &&& y)
-    let c = andGate
+type HalfAdder() =
+  let a = new BehaviorSubject<int>(0)
+  let b = new BehaviorSubject<int>(0)
 
-    member this.InputA = a.OnNext
-    member this.InputB = b.OnNext
-    member val Sum = s
-    member val Carry = c
+  let orGate  = zip a b |> map (fun (x, y) -> x ||| y)
+  let andGate = zip a b |> map (fun (x, y) -> x &&& y)
+  let notGate = andGate |> map (fun x -> ~~~ x)
+  let s = zip orGate notGate |> map (fun (x, y) -> x &&& y)
+  let c = andGate
+
+  member this.InputA = a.OnNext
+  member this.InputB = b.OnNext
+  member val Sum = s
+  member val Carry = c

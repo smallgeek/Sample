@@ -1,4 +1,4 @@
-﻿open Unqualified
+﻿open FSharp.Control.Reactive.Observable
 open System.Reactive.Subjects
 
 [<EntryPoint>]

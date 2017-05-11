@@ -57,7 +57,6 @@
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
     <None Include="paket.references" />
-    <Compile Include="Unqualified.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

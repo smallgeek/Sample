@@ -57,9 +57,6 @@
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
     <None Include="paket.references" />
-    <Compile Include="..\HalfAdder\Unqualified.fs">
-      <Link>Unqualified.fs</Link>
-    </Compile>
     <Compile Include="HalfAdder.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
