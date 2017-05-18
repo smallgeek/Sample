@@ -51,7 +51,7 @@ type MainViewModel() =
     remoteSource 
     |> merge localSource
     |> flatmapAsync recognize
-    |> publishPartition (fun results -> not results.IsDetected)
+    |> publishPartition (fun results -> results.IsDetected)
 
   let detectedText = 
     detected

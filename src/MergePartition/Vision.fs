@@ -22,7 +22,7 @@ type OcrResults with
     source |> Seq.reduce (fun acc s -> s + "\r\n" + acc)
 
 type RecognizeResults = { Text: string; Path: string } with
-  member this.IsDetected = this.Text |> String.IsNullOrEmpty 
+  member this.IsDetected = this.Text |> String.IsNullOrEmpty |> not
 
 let recognize (imageFilePath:Uri) = async {
   let visionServiceClient = VisionServiceClient(Secret.Key)
